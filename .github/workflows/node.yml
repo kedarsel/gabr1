@@ -1,0 +1,33 @@
+name: CI
+on:
+  push:
+    branches: main
+  pull_request:
+   branches: main
+  workflow_dispatch:
+
+permissions: 
+  security-events: write
+  contents: read
+  actions: read
+
+jobs:
+ builds:
+  runs-on: ubuntu-slim
+
+  steps:
+    - name: build and test
+      uses: action/checkout@v4
+
+    - name: install dependencies
+      run: npm install
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+       name: my-artifact
+       path: package
+  
+
+ 
+   
