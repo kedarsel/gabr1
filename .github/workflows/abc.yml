@@ -1,37 +1,49 @@
 name: testing purpose
+
 on:
-  push: 
-   branches:
-   - main
-   - master
-  pull_request: 
-   branches: 
-   - main 
-   - master
+  push:
+    branches:
+      - main
+      - master
+
+  pull_request:
+    branches:
+      - main
+      - master
+
   workflow_dispatch:
 
 permissions:
-      actions: read
-      contents: read
-      security-events: write
+  actions: read
+  contents: read
+  security-events: write
 
 jobs:
   build:
-   runs-on: ubuntu-slim
-   steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
-    - name: build
-      run: npm install
+    runs-on: ubuntu-slim
 
-    - name: TEST
-      run: echo "code is tested!"
-       
-    - name: Artifact upload
-      uses: actions/upload-artifact@v7
-      with:  
-        name: my-artifact
-        path: |
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - javascript-typescript
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: npm install
+
+      - name: TEST
+        run: echo "code is tested!"
+
+      - name: Artifact upload
+        uses: actions/upload-artifact@v7
+        path:
+          package*
+          
+        with:
+          name: my-artifact
+      path: |
             package*
-      
-    
