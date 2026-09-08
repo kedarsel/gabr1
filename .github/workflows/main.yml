@@ -16,7 +16,7 @@ jobs:
   build-and-packages: 
     name: build job
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     strategy:
       fail-fast: false
       matrix:
