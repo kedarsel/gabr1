@@ -16,7 +16,7 @@ jobs:
   build and packages: 
     name: build job
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    runs_on: ${{matrix.os}}
+    runs-on: ${{matrix.os}}
 
 strategy:
   fail-fast: false
